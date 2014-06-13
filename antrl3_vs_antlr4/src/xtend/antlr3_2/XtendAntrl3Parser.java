@@ -1,8 +1,9 @@
 package xtend.antlr3_2;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -12,9 +13,9 @@ import com.google.common.io.CharStreams;
 public class XtendAntrl3Parser {
 
 	public static void main(String[] args) throws IOException {
-		String string1 = CharStreams.toString(new FileReader(new File("src/1.txt")));
-		String string2 = CharStreams.toString(new FileReader(new File("src/2.txt")));
-		String string3 = CharStreams.toString(new FileReader(new File("src/3.txt")));
+		String string1 = CharStreams.toString(new InputStreamReader(new FileInputStream(new File("src/1.txt")), "UTF-8"));
+		String string2 = CharStreams.toString(new InputStreamReader(new FileInputStream(new File("src/2.txt")), "UTF-8"));
+		String string3 = CharStreams.toString(new InputStreamReader(new FileInputStream(new File("src/3.txt")), "UTF-8"));
 		for(int i = 0; i< 100; i++) {
 			doParse(string1);
 			doParse(string2);
