@@ -25,7 +25,7 @@ public class XtendAntlr4Parser {
 			doParse(string2);
 			doParse(string3);
 		}
-		long currentTimeMillis = System.currentTimeMillis();
+		long currentTimeNs = System.nanoTime();
 		// only 1.txt
 		// 74541 with unicode identifiers
 		// 78327 without unicode identifiers
@@ -41,7 +41,7 @@ public class XtendAntlr4Parser {
 			doParse(string2);
 			doParse(string3);
 		}
-		System.out.println((System.currentTimeMillis() - currentTimeMillis) + " ms");
+		System.out.println(((System.nanoTime()- currentTimeNs) / 1000000) + " ms");
 	}
 	
 	private static void doParse(String string) {

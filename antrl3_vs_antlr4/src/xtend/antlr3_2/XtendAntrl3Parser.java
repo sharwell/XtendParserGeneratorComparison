@@ -21,7 +21,7 @@ public class XtendAntrl3Parser {
 			doParse(string2);
 			doParse(string3);
 		}
-		long currentTimeMillis = System.currentTimeMillis();
+		long currentTimeNs = System.nanoTime();
 		// only 1.txt, Antlr 3.5
 		// 32615 with unicode identifiers, 3.5
 		// 2401, 2142 without unicode identifiers, 3.5 
@@ -36,7 +36,7 @@ public class XtendAntrl3Parser {
 			doParse(string2);
 			doParse(string3);
 		}
-		System.out.println((System.currentTimeMillis() - currentTimeMillis) + " ms");
+		System.out.println(((System.nanoTime()- currentTimeNs) / 1000000) + " ms");
 	}
 
 	private static void doParse(String string) {
