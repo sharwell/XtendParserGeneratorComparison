@@ -1,11 +1,11 @@
 grammar Xtend ;
 
 // Rule File
-ruleFile :
-	(
-		'package' ruleQualifiedName ';'?
-	)? ruleXImportSection? ruleType*
-;
+ruleFile
+	:	(	'package' ruleQualifiedName ';'?
+		)?
+		ruleXImportSection? ruleType*
+	;
 
 // Rule Type
 ruleType
@@ -202,17 +202,17 @@ ruleFunctionID
 	;
 
 // Rule Operators
-ruleOperators :
-	ruleOpMultiAssign |
-	ruleOpOr |
-	ruleOpAnd |
-	ruleOpEquality |
-	ruleOpCompare |
-	ruleOpOther |
-	ruleOpMulti |
-	ruleOpUnary |
-	ruleOpPostfix
-;
+ruleOperators
+	:	ruleOpMultiAssign
+	|	ruleOpOr
+	|	ruleOpAnd
+	|	ruleOpEquality
+	|	ruleOpCompare
+	|	ruleOpOther
+	|	ruleOpMulti
+	|	ruleOpUnary
+	|	ruleOpPostfix
+	;
 
 // Rule XtendEnumLiteral
 ruleXtendEnumLiteral
@@ -220,842 +220,935 @@ ruleXtendEnumLiteral
 	;
 
 // Rule CommonModifier
-ruleCommonModifier :
-	'public' |
-	'private' |
-	'protected' |
-	'package' |
-	'abstract' |
-	'static' |
-	'dispatch' |
-	'final' |
-	'strictfp' |
-	'native' |
-	'volatile' |
-	'synchronized' |
-	'transient'
-;
+ruleCommonModifier
+	:	'public'
+	|	'private'
+	|	'protected'
+	|	'package'
+	|	'abstract'
+	|	'static'
+	|	'dispatch'
+	|	'final'
+	|	'strictfp'
+	|	'native'
+	|	'volatile'
+	|	'synchronized'
+	|	'transient'
+	;
 
 // Rule FieldModifier
-ruleFieldModifier :
-	'val' |
-	'var'
-;
+ruleFieldModifier
+	:	'val'
+	|	'var'
+	;
 
 // Rule MethodModifier
-ruleMethodModifier :
-	'def' |
-	'override'
-;
+ruleMethodModifier
+	:	'def'
+	|	'override'
+	;
 
 // Rule CreateExtensionInfo
-ruleCreateExtensionInfo :
-	'create' (
-		ruleValidID ':'
-	)? ruleXExpression
-;
+ruleCreateExtensionInfo
+	:	'create'
+		(	ruleValidID ':'
+		)?
+		ruleXExpression
+	;
 
 // Rule ValidID
-ruleValidID :
-	RULE_ID |
-	'create' |
-	'annotation' |
-	'AFTER' |
-	'BEFORE' |
-	'SEPARATOR'
-;
+ruleValidID
+	:	RULE_ID
+	|	'create'
+	|	'annotation'
+	|	'AFTER'
+	|	'BEFORE'
+	|	'SEPARATOR'
+	;
 
 // Rule FeatureCallID
-ruleFeatureCallID :
-	ruleInnerVarID |
-	'extension'
-;
+ruleFeatureCallID
+	:	ruleInnerVarID
+	|	'extension'
+	;
 
 // Rule InnerVarID
-ruleInnerVarID :
-	RULE_ID |
-	'abstract' |
-	'annotation' |
-	'class' |
-	'create' |
-	'def' |
-	'dispatch' |
-	'enum' |
-	'extends' |
-	'final' |
-	'implements' |
-	'import' |
-	'interface' |
-	'override' |
-	'package' |
-	'public' |
-	'private' |
-	'protected' |
-	'static' |
-	'throws' |
-	'strictfp' |
-	'native' |
-	'volatile' |
-	'synchronized' |
-	'transient' |
-	'AFTER' |
-	'BEFORE' |
-	'SEPARATOR'
+ruleInnerVarID
+	:	RULE_ID
+	|	'abstract'
+	|	'annotation'
+	|	'class'
+	|	'create'
+	|	'def'
+	|	'dispatch'
+	|	'enum'
+	|	'extends'
+	|	'final'
+	|	'implements'
+	|	'import'
+	|	'interface'
+	|	'override'
+	|	'package'
+	|	'public'
+	|	'private'
+	|	'protected'
+	|	'static'
+	|	'throws'
+	|	'strictfp'
+	|	'native'
+	|	'volatile'
+	|	'synchronized'
+	|	'transient'
+	|	'AFTER'
+	|	'BEFORE'
+	|	'SEPARATOR'
 ;
 
 // Rule Parameter
-ruleParameter :
-	ruleXAnnotation* (
-		'extension' ruleXAnnotation*
-	)? ruleJvmTypeReference '...'? ruleValidID
-;
+ruleParameter
+	:	ruleXAnnotation*
+		(	'extension' ruleXAnnotation*
+		)?
+		ruleJvmTypeReference '...'? ruleValidID
+	;
 
 // Rule XVariableDeclaration
-ruleXVariableDeclaration :
-	(  (
-		(
-			'var' |
-			'val'
-		) 'extension'? |
-		'extension' (
-			'var' |
-			'val'
+ruleXVariableDeclaration
+	:	(	(	(	'var'
+				|	'val'
+				)
+				'extension'?
+			|	'extension'
+				(	'var'
+				|	'val'
+				)
+			)
 		)
-	) ) (
-		(  (
-			ruleJvmTypeReference ruleInnerVarID
-		) ) |
-		ruleInnerVarID
-	) (
-		'=' ruleXExpression
-	)?
-;
+		(	(	(	ruleJvmTypeReference ruleInnerVarID
+				)
+			)
+		|	ruleInnerVarID
+		)
+		(	'=' ruleXExpression
+		)?
+	;
 
 // Rule XConstructorCall
-ruleXConstructorCall :
-	ruleXbaseConstructorCall (
-		(  '{' ) ruleMember* '}'
-	)?
-;
+ruleXConstructorCall
+	:	ruleXbaseConstructorCall
+		(	(	'{'
+			)
+			ruleMember* '}'
+		)?
+	;
 
 // Rule XbaseConstructorCall
-ruleXbaseConstructorCall :
-	'new' ruleQualifiedName (
-		(  '<' ) ruleJvmArgumentTypeReference (
-			',' ruleJvmArgumentTypeReference
-		)* '>'
-	)? (
-		(  '(' ) (
-			(  ruleXShortClosure ) |
-			ruleXExpression (
-				',' ruleXExpression
+ruleXbaseConstructorCall
+	:	'new' ruleQualifiedName
+		(	(	'<'
+			)
+			ruleJvmArgumentTypeReference
+			(	',' ruleJvmArgumentTypeReference
 			)*
-		)? ')'
-	)? ( ruleXClosure )?
-;
+			'>'
+		)?
+		(	(	'('
+			)
+			(	(	ruleXShortClosure
+				)
+			|	ruleXExpression
+				(	',' ruleXExpression
+				)*
+			)?
+			')'
+		)?
+		(	ruleXClosure
+		)?
+	;
 
 // Rule JvmFormalParameter
-ruleJvmFormalParameter :
-	'extension'? ruleJvmTypeReference? ruleInnerVarID
-;
+ruleJvmFormalParameter
+	:	'extension'? ruleJvmTypeReference? ruleInnerVarID
+	;
 
 // Rule FullJvmFormalParameter
-ruleFullJvmFormalParameter :
-	'extension'? ruleJvmTypeReference ruleInnerVarID
-;
+ruleFullJvmFormalParameter
+	:	'extension'? ruleJvmTypeReference ruleInnerVarID
+	;
 
 // Rule XStringLiteral
-ruleXStringLiteral :
-	ruleSimpleStringLiteral |
-	ruleRichString
-;
+ruleXStringLiteral
+	:	ruleSimpleStringLiteral
+	|	ruleRichString
+	;
 
 // Rule XSwitchExpression
-ruleXSwitchExpression :
-	'switch' (
-		(  (
-			'(' ruleJvmFormalParameter ':'
-		) ) ruleXExpression ')' |
-		(  (
-			ruleJvmFormalParameter ':'
-		) )? ruleXExpressionOrSimpleConstructorCall
-	) '{' ruleXCasePart* (
-		'default' ':' ruleXExpression
-	)? '}'
-;
+ruleXSwitchExpression
+	:	'switch'
+		(	(	(	'(' ruleJvmFormalParameter ':'
+				)
+			)
+			ruleXExpression ')'
+		|	(	(	ruleJvmFormalParameter ':'
+				)
+			)?
+			ruleXExpressionOrSimpleConstructorCall
+		)
+		'{' ruleXCasePart*
+		(	'default' ':' ruleXExpression
+		)?
+		'}'
+	;
 
 // Rule XExpressionOrSimpleConstructorCall
-ruleXExpressionOrSimpleConstructorCall :
-	( ruleXbaseConstructorCall ) |
-	ruleXExpression
-;
+ruleXExpressionOrSimpleConstructorCall
+	:	(	ruleXbaseConstructorCall
+		)
+	|	ruleXExpression
+	;
 
 // Rule SimpleStringLiteral
-ruleSimpleStringLiteral :
-	RULE_STRING
-;
+ruleSimpleStringLiteral
+	:	RULE_STRING
+	;
 
 // Rule RichString
-ruleRichString :
-	ruleRichStringLiteral |
-	ruleRichStringLiteralStart ruleRichStringPart? (
-		ruleRichStringLiteralInbetween ruleRichStringPart?
-	)* ruleRichStringLiteralEnd
-;
+ruleRichString
+	:	ruleRichStringLiteral
+	|	ruleRichStringLiteralStart ruleRichStringPart?
+		(	ruleRichStringLiteralInbetween ruleRichStringPart?
+		)*
+		ruleRichStringLiteralEnd
+	;
 
 // Rule RichStringLiteral
-ruleRichStringLiteral :
-	RULE_RICH_TEXT
-;
+ruleRichStringLiteral
+	:	RULE_RICH_TEXT
+	;
 
 // Rule RichStringLiteralStart
-ruleRichStringLiteralStart :
-	RULE_RICH_TEXT_START
-;
+ruleRichStringLiteralStart
+	:	RULE_RICH_TEXT_START
+	;
 
 // Rule RichStringLiteralInbetween
-ruleRichStringLiteralInbetween :
-	RULE_RICH_TEXT_INBETWEEN |
-	RULE_COMMENT_RICH_TEXT_INBETWEEN
-;
+ruleRichStringLiteralInbetween
+	:	RULE_RICH_TEXT_INBETWEEN
+	|	RULE_COMMENT_RICH_TEXT_INBETWEEN
+	;
 
 // Rule RichStringLiteralEnd
-ruleRichStringLiteralEnd :
-	RULE_RICH_TEXT_END |
-	RULE_COMMENT_RICH_TEXT_END
-;
+ruleRichStringLiteralEnd
+	:	RULE_RICH_TEXT_END
+	|	RULE_COMMENT_RICH_TEXT_END
+	;
 
 // Rule InternalRichString
-ruleInternalRichString :
-	ruleRichStringLiteralInbetween (
-		ruleRichStringPart? ruleRichStringLiteralInbetween
-	)*
-;
+ruleInternalRichString
+	:	ruleRichStringLiteralInbetween
+		(	ruleRichStringPart? ruleRichStringLiteralInbetween
+		)*
+	;
 
 // Rule RichStringPart
-ruleRichStringPart :
-	ruleXExpressionOrVarDeclaration |
-	ruleRichStringForLoop |
-	ruleRichStringIf
-;
+ruleRichStringPart
+	:	ruleXExpressionOrVarDeclaration
+	|	ruleRichStringForLoop
+	|	ruleRichStringIf
+	;
 
 // Rule RichStringForLoop
-ruleRichStringForLoop :
-	'FOR' ruleJvmFormalParameter ':' ruleXExpression (
-		'BEFORE' ruleXExpression
-	)? (
-		'SEPARATOR' ruleXExpression
-	)? (
-		'AFTER' ruleXExpression
-	)? ruleInternalRichString 'ENDFOR'
-;
+ruleRichStringForLoop
+	:	'FOR' ruleJvmFormalParameter ':' ruleXExpression
+		(	'BEFORE' ruleXExpression
+		)?
+		(	'SEPARATOR' ruleXExpression
+		)?
+		(	'AFTER' ruleXExpression
+		)?
+		ruleInternalRichString 'ENDFOR'
+	;
 
 // Rule RichStringIf
-ruleRichStringIf :
-	'IF' ruleXExpression ruleInternalRichString ruleRichStringElseIf* (
-		'ELSE' ruleInternalRichString
-	)? 'ENDIF'
-;
+ruleRichStringIf
+	:	'IF' ruleXExpression ruleInternalRichString ruleRichStringElseIf*
+		(	'ELSE' ruleInternalRichString
+		)?
+		'ENDIF'
+	;
 
 // Rule RichStringElseIf
-ruleRichStringElseIf :
-	'ELSEIF' ruleXExpression ruleInternalRichString
-;
+ruleRichStringElseIf
+	:	'ELSEIF' ruleXExpression ruleInternalRichString
+	;
 
 // Rule XAnnotation
-ruleXAnnotation :
-	'@' ruleQualifiedName (
-		(  '(' ) (
-			(  ruleXAnnotationElementValuePair ) (
-				',' (  ruleXAnnotationElementValuePair )
-			)* |
-			ruleXAnnotationElementValueOrCommaList
-		)? ')'
-	)?
-;
+ruleXAnnotation
+	:	'@' ruleQualifiedName
+		(	(	'('
+			)
+			(	(	ruleXAnnotationElementValuePair
+				)
+				(	','
+					(	ruleXAnnotationElementValuePair
+					)
+				)*
+			|	ruleXAnnotationElementValueOrCommaList
+			)?
+			')'
+		)?
+	;
 
 // Rule XAnnotationElementValuePair
-ruleXAnnotationElementValuePair :
-	(  (
-		ruleValidID '='
-	) ) ruleXAnnotationElementValue
-;
+ruleXAnnotationElementValuePair
+	:	(	(	ruleValidID '='
+			)
+		)
+		ruleXAnnotationElementValue
+	;
 
 // Rule XAnnotationElementValueOrCommaList
-ruleXAnnotationElementValueOrCommaList :
-	(  (
-		'#' '['
-	) ) (
-		ruleXAnnotationOrExpression (
-			',' ruleXAnnotationOrExpression
-		)*
-	)? ']' |
-	ruleXAnnotationOrExpression (
-		(
-			',' ruleXAnnotationOrExpression
-		)+
-	)?
-;
+ruleXAnnotationElementValueOrCommaList
+	:	(	(	'#' '['
+			)
+		)
+		(	ruleXAnnotationOrExpression
+			(	',' ruleXAnnotationOrExpression
+			)*
+		)?
+		']'
+	|	ruleXAnnotationOrExpression
+		(	(	',' ruleXAnnotationOrExpression
+			)+
+		)?
+	;
 
 // Rule XAnnotationElementValue
-ruleXAnnotationElementValue :
-	(  (
-		'#' '['
-	) ) (
-		ruleXAnnotationOrExpression (
-			',' ruleXAnnotationOrExpression
-		)*
-	)? ']' |
-	ruleXAnnotationOrExpression
-;
+ruleXAnnotationElementValue
+	:	(	(	'#' '['
+			)
+		)
+		(	ruleXAnnotationOrExpression
+			(	',' ruleXAnnotationOrExpression
+			)*
+		)?
+		']'
+	|	ruleXAnnotationOrExpression
+	;
 
 // Rule XAnnotationOrExpression
-ruleXAnnotationOrExpression :
-	ruleXAnnotation |
-	ruleXExpression
-;
+ruleXAnnotationOrExpression
+	:	ruleXAnnotation
+	|	ruleXExpression
+	;
 
 // Rule XExpression
-ruleXExpression :
-	ruleXAssignment
-;
+ruleXExpression
+	:	ruleXAssignment
+	;
 
 // Rule XAssignment
-ruleXAssignment :
-	ruleFeatureCallID ruleOpSingleAssign ruleXAssignment |
-	ruleXOrExpression (
-		(  ruleOpMultiAssign ) ruleXAssignment
-	)?
+ruleXAssignment
+	:	ruleFeatureCallID ruleOpSingleAssign ruleXAssignment
+	|	ruleXOrExpression
+		(	(	ruleOpMultiAssign
+			)
+			ruleXAssignment
+		)?
 ;
 
 // Rule OpSingleAssign
-ruleOpSingleAssign :
-	'='
-;
+ruleOpSingleAssign
+	:	'='
+	;
 
 // Rule OpMultiAssign
-ruleOpMultiAssign :
-	'+=' |
-	'-=' |
-	'*=' |
-	'/=' |
-	'%=' |
-	'<' '<' '=' |
-	'>' '>'? '>='
-;
+ruleOpMultiAssign
+	:	'+='
+	|	'-='
+	|	'*='
+	|	'/='
+	|	'%='
+	|	'<' '<' '='
+	|	'>' '>'? '>='
+	;
 
 // Rule XOrExpression
-ruleXOrExpression :
-	ruleXAndExpression (
-		(  ruleOpOr ) ruleXAndExpression
-	)*
-;
+ruleXOrExpression
+	:	ruleXAndExpression
+		(	(	ruleOpOr
+			)
+			ruleXAndExpression
+		)*
+	;
 
 // Rule OpOr
-ruleOpOr :
-	'||'
-;
+ruleOpOr
+	:	'||'
+	;
 
 // Rule XAndExpression
-ruleXAndExpression :
-	ruleXEqualityExpression (
-		(  ruleOpAnd ) ruleXEqualityExpression
-	)*
-;
+ruleXAndExpression
+	:	ruleXEqualityExpression
+		(	(	ruleOpAnd
+			)
+			ruleXEqualityExpression
+		)*
+	;
 
 // Rule OpAnd
-ruleOpAnd :
-	'&&'
-;
+ruleOpAnd
+	:	'&&'
+	;
 
 // Rule XEqualityExpression
-ruleXEqualityExpression :
-	ruleXRelationalExpression (
-		(  ruleOpEquality ) ruleXRelationalExpression
-	)*
-;
+ruleXEqualityExpression
+	:	ruleXRelationalExpression
+		(	(	ruleOpEquality
+			)
+			ruleXRelationalExpression
+		)*
+	;
 
 // Rule OpEquality
-ruleOpEquality :
-	'==' |
-	'!=' |
-	'===' |
-	'!=='
-;
+ruleOpEquality
+	:	'=='
+	|	'!='
+	|	'==='
+	|	'!=='
+	;
 
 // Rule XRelationalExpression
-ruleXRelationalExpression :
-	ruleXOtherOperatorExpression (
-		(  'instanceof' ) ruleJvmTypeReference |
-		( ruleOpCompare ) ruleXOtherOperatorExpression
-	)*
-;
+ruleXRelationalExpression
+	:	ruleXOtherOperatorExpression
+		(	(	'instanceof'
+			)
+			ruleJvmTypeReference
+		|	(	ruleOpCompare
+			)
+			ruleXOtherOperatorExpression
+		)*
+	;
 
 // Rule OpCompare
-ruleOpCompare :
-	'>=' |
-	'<' '=' |
-	'>' |
-	'<'
-;
+ruleOpCompare
+	:	'>='
+	|	'<' '='
+	|	'>'
+	|	'<'
+	;
 
 // Rule XOtherOperatorExpression
-ruleXOtherOperatorExpression :
-	ruleXAdditiveExpression (
-		(  ruleOpOther ) ruleXAdditiveExpression
-	)*
-;
+ruleXOtherOperatorExpression
+	:	ruleXAdditiveExpression
+		(	(	ruleOpOther
+			)
+			ruleXAdditiveExpression
+		)*
+	;
 
 // Rule OpOther
-ruleOpOther :
-	'->' |
-	'..<' |
-	'>' '..' |
-	'..' |
-	'=>' |
-	'>' (
-		(  (
-			'>' '>'
-		) ) |
-		'>'
-	) |
-	'<' (
-		(  (
-			'<' '<'
-		) ) |
-		'<' |
-		'=>'
-	) |
-	'<>' |
-	'?:'
-;
+ruleOpOther
+	:	'->'
+	|	'..<'
+	|	'>' '..'
+	|	'..'
+	|	'=>'
+	|	'>'
+		(	(	(	'>' '>'
+				)
+			)
+		|	'>'
+		)
+	|	'<'
+		(	(	(	'<' '<'
+				)
+			)
+		|	'<'
+		|	'=>'
+		)
+	|	'<>'
+	|	'?:'
+	;
 
 // Rule XAdditiveExpression
-ruleXAdditiveExpression :
-	ruleXMultiplicativeExpression (
-		(  ruleOpAdd ) ruleXMultiplicativeExpression
-	)*
-;
+ruleXAdditiveExpression
+	:	ruleXMultiplicativeExpression
+		(	(	ruleOpAdd
+			)
+			ruleXMultiplicativeExpression
+		)*
+	;
 
 // Rule OpAdd
-ruleOpAdd :
-	'+' |
-	'-'
-;
+ruleOpAdd
+	:	'+'
+	|	'-'
+	;
 
 // Rule XMultiplicativeExpression
-ruleXMultiplicativeExpression :
-	ruleXUnaryOperation (
-		(  ruleOpMulti ) ruleXUnaryOperation
-	)*
-;
+ruleXMultiplicativeExpression
+	:	ruleXUnaryOperation
+		(	(	ruleOpMulti
+			)
+			ruleXUnaryOperation
+		)*
+	;
 
 // Rule OpMulti
-ruleOpMulti :
-	'*' |
-	'**' |
-	'/' |
-	'%'
-;
+ruleOpMulti
+	:	'*'
+	|	'**'
+	|	'/'
+	|	'%'
+	;
 
 // Rule XUnaryOperation
-ruleXUnaryOperation :
-	ruleOpUnary ruleXUnaryOperation |
-	ruleXCastedExpression
-;
+ruleXUnaryOperation
+	:	ruleOpUnary ruleXUnaryOperation
+	|	ruleXCastedExpression
+	;
 
 // Rule OpUnary
-ruleOpUnary :
-	'!' |
-	'-' |
-	'+'
-;
+ruleOpUnary
+	:	'!'
+	|	'-'
+	|	'+'
+	;
 
 // Rule XCastedExpression
-ruleXCastedExpression :
-	ruleXPostfixOperation (
-		( 'as' ) ruleJvmTypeReference
-	)*
-;
+ruleXCastedExpression
+	:	ruleXPostfixOperation
+		(	(	'as'
+			)
+			ruleJvmTypeReference
+		)*
+	;
 
 // Rule XPostfixOperation
-ruleXPostfixOperation :
-	ruleXMemberFeatureCall (  ruleOpPostfix )?
-;
+ruleXPostfixOperation
+	:	ruleXMemberFeatureCall
+		(	ruleOpPostfix
+		)?
+	;
 
 // Rule OpPostfix
-ruleOpPostfix :
-	'++' |
-	'--'
-;
+ruleOpPostfix
+	:	'++'
+	|	'--'
+	;
 
 // Rule XMemberFeatureCall
-ruleXMemberFeatureCall :
-	ruleXPrimaryExpression (
-		(  (
-			(
-				'.' |
-				'::'
-			) ruleFeatureCallID ruleOpSingleAssign
-		) ) ruleXAssignment |
-		(  (
-			'.' |
-			'?.' |
-			'::'
-		) ) (
-			'<' ruleJvmArgumentTypeReference (
-				',' ruleJvmArgumentTypeReference
-			)* '>'
-		)? ruleIdOrSuper (
-			(  '(' ) (
-				(  ruleXShortClosure ) |
-				ruleXExpression (
-					',' ruleXExpression
+ruleXMemberFeatureCall
+	:	ruleXPrimaryExpression
+		(	(	(	(	'.'
+					|	'::'
+					)
+					ruleFeatureCallID ruleOpSingleAssign
+				)
+			)
+			ruleXAssignment
+		|	(	(	'.'
+				|	'?.'
+				|	'::'
+				)
+			)
+			(	'<' ruleJvmArgumentTypeReference
+				(	',' ruleJvmArgumentTypeReference
 				)*
-			)? ')'
-		)? ( ruleXClosure )?
-	)*
+				'>'
+			)?
+			ruleIdOrSuper
+			(	(	'('
+				)
+				(	(	ruleXShortClosure
+					)
+				|	ruleXExpression
+					(	',' ruleXExpression
+					)*
+				)?
+				')'
+			)?
+			(	ruleXClosure
+			)?
+		)*
 ;
 
 // Rule XPrimaryExpression
-ruleXPrimaryExpression :
-	ruleXConstructorCall |
-	ruleXBlockExpression |
-	ruleXSwitchExpression |
-	( ruleXSynchronizedExpression ) |
-	ruleXFeatureCall |
-	ruleXLiteral |
-	ruleXIfExpression |
-	(  ruleXForLoopExpression ) |
-	ruleXBasicForLoopExpression |
-	ruleXWhileExpression |
-	ruleXDoWhileExpression |
-	ruleXThrowExpression |
-	ruleXReturnExpression |
-	ruleXTryCatchFinallyExpression |
-	ruleXParenthesizedExpression
-;
+ruleXPrimaryExpression
+	:	ruleXConstructorCall
+	|	ruleXBlockExpression
+	|	ruleXSwitchExpression
+	|	(	ruleXSynchronizedExpression
+		)
+	|	ruleXFeatureCall
+	|	ruleXLiteral
+	|	ruleXIfExpression
+	|	(	ruleXForLoopExpression
+		)
+	|	ruleXBasicForLoopExpression
+	|	ruleXWhileExpression
+	|	ruleXDoWhileExpression
+	|	ruleXThrowExpression
+	|	ruleXReturnExpression
+	|	ruleXTryCatchFinallyExpression
+	|	ruleXParenthesizedExpression
+	;
 
 // Rule XLiteral
-ruleXLiteral :
-	ruleXCollectionLiteral |
-	(  ruleXClosure ) |
-	ruleXBooleanLiteral |
-	ruleXNumberLiteral |
-	ruleXNullLiteral |
-	ruleXStringLiteral |
-	ruleXTypeLiteral
-;
+ruleXLiteral
+	:	ruleXCollectionLiteral
+	|	(	ruleXClosure
+		)
+	|	ruleXBooleanLiteral
+	|	ruleXNumberLiteral
+	|	ruleXNullLiteral
+	|	ruleXStringLiteral
+	|	ruleXTypeLiteral
+	;
 
 // Rule XCollectionLiteral
-ruleXCollectionLiteral :
-	ruleXSetLiteral |
-	ruleXListLiteral
-;
+ruleXCollectionLiteral
+	:	ruleXSetLiteral
+	|	ruleXListLiteral
+	;
 
 // Rule XSetLiteral
-ruleXSetLiteral :
-	'#' '{' (
-		ruleXExpression (
-			',' ruleXExpression
-		)*
-	)? '}'
-;
+ruleXSetLiteral
+	:	'#' '{'
+		(	ruleXExpression
+			(	',' ruleXExpression
+			)*
+		)?
+		'}'
+	;
 
 // Rule XListLiteral
-ruleXListLiteral :
-	'#' '[' (
-		ruleXExpression (
-			',' ruleXExpression
-		)*
-	)? ']'
-;
+ruleXListLiteral
+	:	'#' '['
+		(	ruleXExpression
+			(	',' ruleXExpression
+			)*
+		)?
+		']'
+	;
 
 // Rule XClosure
-ruleXClosure :
-	(  '[' ) (  (
-		(
-			ruleJvmFormalParameter (
-				',' ruleJvmFormalParameter
-			)*
-		)? '|'
-	) )? ruleXExpressionInClosure ']'
+ruleXClosure
+	:	(	'['
+		)
+		(	(	(	ruleJvmFormalParameter
+					(	',' ruleJvmFormalParameter
+					)*
+				)?
+				'|'
+			)
+		)?
+		ruleXExpressionInClosure ']'
 ;
 
 // Rule XExpressionInClosure
-ruleXExpressionInClosure :
-	(
-		ruleXExpressionOrVarDeclaration ';'?
-	)*
-;
+ruleXExpressionInClosure
+	:	(	ruleXExpressionOrVarDeclaration ';'?
+		)*
+	;
 
 // Rule XShortClosure
-ruleXShortClosure :
-	(  (
-		(
-			ruleJvmFormalParameter (
-				',' ruleJvmFormalParameter
-			)*
-		)? '|'
-	) ) ruleXExpression
+ruleXShortClosure
+	:	(	(	(	ruleJvmFormalParameter
+					(	',' ruleJvmFormalParameter
+					)*
+				)?
+				'|'
+			)
+		)
+		ruleXExpression
 ;
 
 // Rule XParenthesizedExpression
-ruleXParenthesizedExpression :
-	'(' ruleXExpression ')'
-;
+ruleXParenthesizedExpression
+	:	'(' ruleXExpression ')'
+	;
 
 // Rule XIfExpression
-ruleXIfExpression :
-	'if' '(' ruleXExpression ')' ruleXExpression (
-		(  'else' ) ruleXExpression
-	)?
-;
+ruleXIfExpression
+	:	'if' '(' ruleXExpression ')' ruleXExpression
+		(	(	'else'
+			)
+			ruleXExpression
+		)?
+	;
 
 // Rule XCasePart
-ruleXCasePart :
-	ruleJvmTypeReference? (
-		'case' ruleXExpression
-	)? (
-		':' ruleXExpression |
-		','
-	)
-;
+ruleXCasePart
+	:	ruleJvmTypeReference?
+		(	'case' ruleXExpression
+		)?
+		(	':' ruleXExpression
+		|	','
+		)
+	;
 
 // Rule XForLoopExpression
-ruleXForLoopExpression :
-	( (
-		'for' '(' ruleJvmFormalParameter ':'
-	) ) ruleXExpression ')' ruleXExpression
+ruleXForLoopExpression
+	:	(	(	'for' '(' ruleJvmFormalParameter ':'
+			)
+		)
+		ruleXExpression ')' ruleXExpression
 ;
 
 // Rule XBasicForLoopExpression
-ruleXBasicForLoopExpression :
-	'for' '(' (
-		ruleXExpressionOrVarDeclaration (
-			',' ruleXExpressionOrVarDeclaration
-		)*
-	)? ';' ruleXExpression? ';' (
-		ruleXExpression (
-			',' ruleXExpression
-		)*
-	)? ')' ruleXExpression
-;
+ruleXBasicForLoopExpression
+	:	'for' '('
+		(	ruleXExpressionOrVarDeclaration
+			(	',' ruleXExpressionOrVarDeclaration
+			)*
+		)?
+		';' ruleXExpression? ';'
+		(	ruleXExpression
+			(	',' ruleXExpression
+			)*
+		)?
+		')' ruleXExpression
+	;
 
 // Rule XWhileExpression
-ruleXWhileExpression :
-	'while' '(' ruleXExpression ')' ruleXExpression
-;
+ruleXWhileExpression
+	:	'while' '(' ruleXExpression ')' ruleXExpression
+	;
 
 // Rule XDoWhileExpression
-ruleXDoWhileExpression :
-	'do' ruleXExpression 'while' '(' ruleXExpression ')'
-;
+ruleXDoWhileExpression
+	:	'do' ruleXExpression 'while' '(' ruleXExpression ')'
+	;
 
 // Rule XBlockExpression
-ruleXBlockExpression :
-	'{' (
-		ruleXExpressionOrVarDeclaration ';'?
-	)* '}'
-;
+ruleXBlockExpression
+	:	'{'
+		(	ruleXExpressionOrVarDeclaration ';'?
+		)*
+		'}'
+	;
 
 // Rule XExpressionOrVarDeclaration
-ruleXExpressionOrVarDeclaration :
-	(  ruleXVariableDeclaration ) |
-	ruleXExpression
-;
+ruleXExpressionOrVarDeclaration
+	:	(	ruleXVariableDeclaration
+		)
+	|	ruleXExpression
+	;
 
 // Rule XFeatureCall
-ruleXFeatureCall :
-	(
-		'<' ruleJvmArgumentTypeReference (
-			',' ruleJvmArgumentTypeReference
-		)* '>'
-	)? ruleIdOrSuper (
-		( '(' ) (
-			(  ruleXShortClosure ) |
-			ruleXExpression (
-				',' ruleXExpression
+ruleXFeatureCall
+	:	(	'<' ruleJvmArgumentTypeReference
+			(	',' ruleJvmArgumentTypeReference
 			)*
-		)? ')'
-	)? ( ruleXClosure )?
-;
+			'>'
+		)?
+		ruleIdOrSuper
+		(	(	'('
+			)
+			(	(	ruleXShortClosure
+				)
+			|	ruleXExpression
+				(	',' ruleXExpression
+				)*
+			)?
+			')'
+		)?
+		(	ruleXClosure
+		)?
+	;
 
 // Rule IdOrSuper
-ruleIdOrSuper :
-	ruleFeatureCallID |
-	'super'
-;
+ruleIdOrSuper
+	:	ruleFeatureCallID
+	|	'super'
+	;
 
 // Rule XBooleanLiteral
-ruleXBooleanLiteral :
-	'false' |
-	'true'
-;
+ruleXBooleanLiteral
+	:	'false'
+	|	'true'
+	;
 
 // Rule XNullLiteral
-ruleXNullLiteral :
-	'null'
-;
+ruleXNullLiteral
+	:	'null'
+	;
 
 // Rule XNumberLiteral
-ruleXNumberLiteral :
-	ruleNumber
-;
+ruleXNumberLiteral
+	:	ruleNumber
+	;
 
 // Rule XTypeLiteral
-ruleXTypeLiteral :
-	'typeof' '(' ruleQualifiedName ruleArrayBrackets* ')'
-;
+ruleXTypeLiteral
+	:	'typeof' '(' ruleQualifiedName ruleArrayBrackets* ')'
+	;
 
 // Rule XThrowExpression
-ruleXThrowExpression :
-	'throw' ruleXExpression
-;
+ruleXThrowExpression
+	:	'throw' ruleXExpression
+	;
 
 // Rule XReturnExpression
-ruleXReturnExpression :
-	'return' ( ruleXExpression )?
-;
+ruleXReturnExpression
+	:	'return'
+		(	ruleXExpression
+		)?
+	;
 
 // Rule XTryCatchFinallyExpression
-ruleXTryCatchFinallyExpression :
-	'try' ruleXExpression (
-		(  ruleXCatchClause )+ (
-			(  'finally' ) ruleXExpression
-		)? |
-		'finally' ruleXExpression
-	)
-;
+ruleXTryCatchFinallyExpression
+	:	'try' ruleXExpression
+		(	(	ruleXCatchClause
+			)+
+			(	(	'finally'
+				)
+				ruleXExpression
+			)?
+		|	'finally' ruleXExpression
+		)
+	;
 
 // Rule XSynchronizedExpression
-ruleXSynchronizedExpression :
-	(  (
-		'synchronized' '('
-	) ) ruleXExpression ')' ruleXExpression
-;
+ruleXSynchronizedExpression
+	:	(	(	'synchronized' '('
+			)
+		)
+		ruleXExpression ')' ruleXExpression
+	;
 
 // Rule XCatchClause
-ruleXCatchClause :
-	(  'catch' ) '(' ruleFullJvmFormalParameter ')' ruleXExpression
-;
+ruleXCatchClause
+	:	(	'catch'
+		)
+		'(' ruleFullJvmFormalParameter ')' ruleXExpression
+	;
 
 // Rule QualifiedName
-ruleQualifiedName :
-	ruleValidID (
-		(  '.' ) ruleValidID
-	)*
-;
+ruleQualifiedName
+	:	ruleValidID
+		(	(	'.'
+			)
+			ruleValidID
+		)*
+	;
 
 // Rule Number
-ruleNumber :
-	RULE_HEX |
-	(
-		RULE_INT |
-		RULE_DECIMAL
-	) (
-		'.' (
-			RULE_INT |
-			RULE_DECIMAL
+ruleNumber
+	:	RULE_HEX
+	|	(	RULE_INT
+		|	RULE_DECIMAL
 		)
-	)?
-;
+		(	'.'
+			(	RULE_INT
+			|	RULE_DECIMAL
+			)
+		)?
+	;
 
 // Rule JvmTypeReference
-ruleJvmTypeReference :
-	ruleJvmParameterizedTypeReference ( ruleArrayBrackets )* |
-	ruleXFunctionTypeRef
-;
+ruleJvmTypeReference
+	:	ruleJvmParameterizedTypeReference
+		(	ruleArrayBrackets
+		)*
+	|	ruleXFunctionTypeRef
+	;
 
 // Rule ArrayBrackets
-ruleArrayBrackets :
-	'[' ']'
-;
+ruleArrayBrackets
+	:	'[' ']'
+	;
 
 // Rule XFunctionTypeRef
-ruleXFunctionTypeRef :
-	(
-		'(' (
-			ruleJvmTypeReference (
-				',' ruleJvmTypeReference
-			)*
-		)? ')'
-	)? '=>' ruleJvmTypeReference
+ruleXFunctionTypeRef
+	:	(	'('
+			(	ruleJvmTypeReference
+				(	',' ruleJvmTypeReference
+				)*
+			)?
+			')'
+		)?
+		'=>' ruleJvmTypeReference
 ;
 
 // Rule JvmParameterizedTypeReference
-ruleJvmParameterizedTypeReference :
-	ruleQualifiedName (
-		(  '<' ) ruleJvmArgumentTypeReference (
-			',' ruleJvmArgumentTypeReference
-		)* '>'
-	)?
-;
+ruleJvmParameterizedTypeReference
+	:	ruleQualifiedName
+		(	(	'<'
+			)
+			ruleJvmArgumentTypeReference
+			(	',' ruleJvmArgumentTypeReference
+			)*
+			'>'
+		)?
+	;
 
 // Rule JvmArgumentTypeReference
-ruleJvmArgumentTypeReference :
-	ruleJvmTypeReference |
-	ruleJvmWildcardTypeReference
-;
+ruleJvmArgumentTypeReference
+	:	ruleJvmTypeReference
+	|	ruleJvmWildcardTypeReference
+	;
 
 // Rule JvmWildcardTypeReference
-ruleJvmWildcardTypeReference :
-	'?' (
-		ruleJvmUpperBound |
-		ruleJvmLowerBound
-	)?
-;
+ruleJvmWildcardTypeReference
+	:	'?'
+		(	ruleJvmUpperBound
+		|	ruleJvmLowerBound
+		)?
+	;
 
 // Rule JvmUpperBound
-ruleJvmUpperBound :
-	'extends' ruleJvmTypeReference
-;
+ruleJvmUpperBound
+	:	'extends' ruleJvmTypeReference
+	;
 
 // Rule JvmUpperBoundAnded
-ruleJvmUpperBoundAnded :
-	'&' ruleJvmTypeReference
-;
+ruleJvmUpperBoundAnded
+	:	'&' ruleJvmTypeReference
+	;
 
 // Rule JvmLowerBound
-ruleJvmLowerBound :
-	'super' ruleJvmTypeReference
-;
+ruleJvmLowerBound
+	:	'super' ruleJvmTypeReference
+	;
 
 // Rule JvmTypeParameter
-ruleJvmTypeParameter :
-	ruleValidID (
-		ruleJvmUpperBound ruleJvmUpperBoundAnded*
-	)?
-;
+ruleJvmTypeParameter
+	:	ruleValidID
+		(	ruleJvmUpperBound ruleJvmUpperBoundAnded*
+		)?
+	;
 
 // Rule QualifiedNameWithWildcard
-ruleQualifiedNameWithWildcard :
-	ruleQualifiedName '.' '*'
-;
+ruleQualifiedNameWithWildcard
+	:	ruleQualifiedName '.' '*'
+	;
 
 // Rule XImportSection
-ruleXImportSection :
-	ruleXImportDeclaration+
-;
+ruleXImportSection
+	:	ruleXImportDeclaration+
+	;
 
 // Rule XImportDeclaration
-ruleXImportDeclaration :
-	'import' (
-		'static' 'extension'? ruleQualifiedNameInStaticImport (
-			'*' |
-			ruleValidID
-		) |
-		ruleQualifiedName |
-		ruleQualifiedNameWithWildcard
-	) ';'?
-;
+ruleXImportDeclaration
+	:	'import'
+		(	'static' 'extension'? ruleQualifiedNameInStaticImport
+			(	'*'
+			|	ruleValidID
+			)
+		|	ruleQualifiedName
+		|	ruleQualifiedNameWithWildcard
+		)
+		';'?
+	;
 
 // Rule QualifiedNameInStaticImport
-ruleQualifiedNameInStaticImport :
-	(
-		ruleValidID '.'
-	)+
-;
+ruleQualifiedNameInStaticImport
+	:	(	ruleValidID '.'
+		)+
+	;
 
 RULE_ID :
 	'^'? (
