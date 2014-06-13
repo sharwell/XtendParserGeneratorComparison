@@ -1,12 +1,5 @@
 grammar Xtend ;
 
-@lexer::header {
-package xtend.antlr4_2;
-}
-@parser::header {
-package xtend.antlr4_2; 
-}
-
 // Rule File
 ruleFile :
 	(

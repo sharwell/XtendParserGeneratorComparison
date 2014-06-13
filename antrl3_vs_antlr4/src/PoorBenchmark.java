@@ -56,9 +56,9 @@ public class PoorBenchmark {
 
 	public static void main(String[] args) throws IOException {
 		for(int i = 0; i < 10; i++) {
-			System.out.print("Antlr 4.2: ");
+			System.out.print("Antlr 4.2.2: ");
 			XtendAntlr4Parser.main(null);
-			System.out.print("Antlr 3.2: ");
+			System.out.print("Antlr 3.5.2: ");
 			XtendAntrl3Parser.main(null);
 		}
 	}
